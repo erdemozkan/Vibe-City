@@ -2,7 +2,7 @@
 
 # 🌴 VIBE CITY 🌴
 
-**A living neon coastal city inside your terminal — complete with day/night cycles, 90 cruising cars, 5 original synthwave radio stations, enterable animated landmarks, and a Ghost-Mode secret.**
+**A living neon coastal city inside your terminal — complete with dynamic day/night cycles, 90 cruising cars, 5 original procedurally-synthesized radio stations, enterable animated landmarks, and an unlisted hidden treasure.**
 
 [![Python 3](https://img.shields.io/badge/Python-3.8%2B-ff48b8?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
 [![Terminal](https://img.shields.io/badge/Terminal-256--Color%20Curses-00f5ff?style=flat-square)](#quick-start)
@@ -27,13 +27,11 @@
 >
 > *Out on **Route 86**, beneath a flickering **`$0.86 · 24 HRS`** neon sign, a dark muscle car idles in the purple sunset haze. Two silhouettes stand on the asphalt in front of the pumps—crimson bandana, navy bandana, eyes fixed straight ahead—watching a jet contrail dissolve into the dusk.*
 >
-> *Drive long enough and the locals will tell you one more rumor: when the night gets late and the neon signs start to hum, switch into **Ghost Mode** and drift through the pastel walls of **Neon Shores**. They say there is no blinking star to guide you—only something hidden quietly beneath the glowing letters of **`HOTEL`** for those curious enough to look.*
+> *Cruise long enough and you'll hear one more rumor drifting between radio tracks: somewhere in this city lies a **hidden treasure**—unmarked, unannounced, and waiting for whoever stumbles upon it.*
 
 ---
 
 ## 🚗 Cruising the Archipelago
-
-Explore a handcrafted `180 × 60` coastal archipelago inspired by classic 1986 Vice City geography—featuring organic coastlines, turquoise coastal bathymetry, continuous golden beaches, three central bay island chains, four east–west bridges, crossed airport runways, and protruding harbor piers.
 
 <div align="center">
 
@@ -47,8 +45,6 @@ Explore a handcrafted `180 × 60` coastal archipelago inspired by classic 1986 V
 
 ## 🗺️ Living World & Full-City Day/Night Cycle
 
-Press **`M`** at any time to zoom out to the live satellite view of the entire city. Watch a full 24-hour cycle unfold (**Dawn → Day → Dusk → Night**) as ocean hues shift from sunny turquoise to deep navy, neon signs flicker alive after sunset, tower windows gradually light up until 02:00, and 90 AI cars weave across every highway and bridge.
-
 <div align="center">
 
 ![Full City Map Day to Night](media/full-map.gif)
@@ -61,8 +57,6 @@ Press **`M`** at any time to zoom out to the live satellite view of the entire c
 
 ## ★ Enterable Animated Landmarks
 
-Walk within 2 tiles of any flashing **`★`** landmark and press **`E`** to step into a full-screen animated terminal scene—from the sunset duo outside **Sunset Gas Stop**, to sailboats gliding across **Sunset Pier**, sweeping searchlights above **Club 86 Rooftop**, and neon reflections on the wet asphalt of **Pink Flamingo Motel**.
-
 <div align="center">
 
 ![Enterable Landmarks Showcase](media/landmarks.gif)
@@ -71,8 +65,24 @@ Walk within 2 tiles of any flashing **`★`** landmark and press **`E`** to step
 
 </div>
 
-### 👻 Rumor of a Hidden Treasure
-> *Not every landmark announces itself with a blinking **`★`**. Activate **Ghost Mode (`G`)** and explore inside the solid blocks of **Neon Shores**—somewhere right beneath the neon **`HOTEL`** sign hides an unlisted native ASCII fan-art piece.*
+---
+
+## 🌟 Features & Details
+
+- **Handcrafted `180 × 60` Coastal Archipelago**: Organic coastlines with distance-based coastal bathymetry (shallow turquoise **Vibe Bay** hugging every shoreline before dropping into rolling deep-navy **The Big Blue**), continuous golden beaches, palm groves, a winding canal through **Mango Gardens**, three central bay island chains (Prawn Island, the three connected Leaf Links golf islands, and Starfish Island), four east–west bridges, crossed X-shaped airport runways, and three protruding harbor piers at **Starlight Docks**.
+- **Real-Time 24-Hour Day/Night Cycle**: The city opens at `16:00` (4 game minutes per real second, so a full day takes 6 minutes and your first sunset arrives ~40 seconds in). Ocean waters, beaches, grass, glass towers, and roads smoothly blend across **Dawn**, **Day**, **Dusk**, and **Night**. Neon signs switch off during daylight and flicker alive after dusk, while skyscraper and hotel windows light up dynamically—peaking around `02:00` before people head to sleep by `05:00`.
+- **90 Autonomous AI Vehicles**: Colorful traffic (`▶ ▼ ◀ ▲`) cruises continuously across expressways, avenues, and all four bridges in real time.
+- **6 Enterable Animated Landmarks**: Walk within 2 tiles of any flashing **`★`** landmark and press **`E`** to open a full-screen live animated scene:
+  - **Sunset Gas Stop** (*Route 86*) — Foreground duo in half-block pixel art, idling muscle car with blinking taillights & exhaust puffs, chasing **`$0.86 GAS`** neon sign, power lines with birds, drifting pink clouds, and a passing jet with contrail.
+  - **Sunset Pier** (*Neon Shores*) — Striped synthwave sun setting over glittering waves, passing sailboat, flying gulls, and flickering pier lanterns.
+  - **Pink Flamingo Motel** (*Neon Shores*) — Pastel two-story motel, flashing **`NO VACANCY`** neon marquee, parked cruiser, and shimmering neon reflections on wet asphalt.
+  - **Club 86 Rooftop** (*Chrome Heights*) — Sweeping skyline searchlights, blinking radio towers, a passing helicopter, and an animated rooftop dance floor.
+  - **Runway 86** (*Vibe Int'l Airport*) — Perspective runway with rushing edge lights and jets taking off every 7 seconds.
+  - **Crane Row** (*Starlight Docks*) — Sweeping lighthouse beam, moonlit harbor, working gantry cranes swinging containers, and passing cargo ships.
+- **13 Distinct Districts & Vibes Meter**: Every region tracks its own live **Vibes** rating (`▮▮▮▮▮`) and pops a neon toast banner whenever you cross into a new neighborhood.
+- **Built-In Procedural Synth Radio**: 5 original stations (15 tracks) synthesized from scratch in [`radio.py`](radio.py) using NumPy oscillators, procedural drums, stereo ping-pong echo, and seeded chord progressions—played seamlessly in a single-worker background thread with zero audio overlap when switching stations or tracks.
+- **Zero-Dependency Core & Adaptive Terminal Rendering**: Runs on the Python standard library alone (`curses`), dynamically manages 256-color pairs (with automatic 16-color down-mapping), adapts smoothly to live terminal resizes, and includes a full `--ascii` glyph fallback mode.
+- **🏆 Hidden Treasure**: There is a secret, unlisted hidden treasure tucked somewhere in Vibe City. No spoilers, no blinking markers, and no hints—happy hunting!
 
 ---
 
@@ -84,17 +94,17 @@ cd Vibe-City
 python3 vibe_city.py
 ```
 
-### Options
+### Launch Options
 | Command | Description |
 | :--- | :--- |
-| `python3 vibe_city.py` | Launch with 256-color Unicode graphics + live synth radio (recommended: `120×40` or larger terminal) |
-| `python3 vibe_city.py --ascii` | Pure ASCII fallback mode if your terminal font doesn't align Unicode glyphs |
+| `python3 vibe_city.py` | Launch with 256-color Unicode graphics + live synth radio |
+| `python3 vibe_city.py --ascii` | Pure ASCII fallback mode if your terminal font mangles Unicode glyphs |
 | `python3 vibe_city.py --mute` | Launch without background radio audio |
 | `VIBE_VOLUME=0.4 python3 vibe_city.py` | Adjust radio playback volume (`0.0` – `1.0`, default `0.6`) |
 
 ### Requirements
-- **Core game**: Python 3.8+ standard library only (`curses`, `math`, `random`, `zlib`) — zero external packages required.
-- **Built-in synth radio** *(optional)*: `numpy` + macOS `afplay` (`afconvert` compresses cached loops into `./radio/` automatically). If unavailable, the game runs cleanly in silent mode.
+- **Core game**: Python 3.8+ standard library only (`curses`, `math`, `random`, `zlib`, `base64`).
+- **Built-in synth radio** *(optional)*: `numpy` + macOS `afplay` (uses built-in `afconvert` to cache compressed `.m4a` loops inside `./radio/`). If either is unavailable, the game runs cleanly in silent mode.
 
 ---
 
@@ -104,24 +114,37 @@ python3 vibe_city.py
 | :--- | :--- |
 | `↑` `↓` `←` `→` / `W` `A` `S` `D` | Cruise around the city |
 | `TAB` | Toggle **Sprint** (3× movement speed) |
-| `E` / `Enter` | Enter a nearby **`★`** landmark (or exit a scene) |
+| `E` / `Enter` | Enter a nearby **`★`** landmark (or return to the city) |
 | `M` | Toggle full-city map view |
-| `G` | Toggle **Ghost Mode** (pass over water & rooftops) |
+| `G` | Toggle **Ghost Mode** (pass freely over water & rooftops) |
 | `T` | Skip ahead 2 hours (jump straight to sunrise or sunset) |
 | `R` | Next radio station |
 | `N` | Next song on the current station |
 | `V` | Mute / unmute radio audio |
 | `?` / `H` | Toggle in-game help overlay |
-| `Esc` | Close scene / map / help |
-| `Q` | Quit |
+| `Esc` | Close active scene, map view, or help box |
+| `Q` | Quit cleanly (stops radio playback automatically) |
+
+---
+
+## 💡 Tips & Tricks
+
+- **Best window size**: Aim for at least **`120 × 40`** for roomy cruising—or maximize your terminal to **`180 × 62`** to take in the entire archipelago at native 1:1 scale without scrolling.
+- **Instant golden hour or midnight**: Tap **`T`** to jump ahead 2 hours anytime—hit **`18:30–19:30`** for sunset dusk, **`02:00`** for peak lit skyline windows, or **`12:00`** for bright turquoise tropical waters.
+- **Cruise while zoomed out**: You can still drive around in full-city Map Mode (**`M`**)—your glowing neon marker pulses so you can plot long bridge crossings across the whole bay.
+- **Sprint + Ghost Mode**: Combine **`TAB`** (3× speed) with **`G`** (Ghost Mode) to glide effortlessly across open water and high-rise rooftops. If you turn Ghost Mode off while over water or a solid building, the city safely teleports you back to spawn so you never get stuck.
+- **Radio stays live everywhere**: **`R`** (station), **`N`** (next song), and **`V`** (mute/unmute) work even while hanging out inside animated landmark scenes.
+- **Fast restarts**: On first launch, `radio.py` synthesizes the first track of every station first (so switching stations with **`R`** is immediate) and caches all 15 loops in `./radio/`. Every launch after that starts playing instantly.
+- **Chill coding soundtrack**: Run `VIBE_VOLUME=0.25 python3 vibe_city.py`, park at **Sunset Pier** or **Sunset Gas Stop**, and leave it running in a side terminal pane as an animated synthwave desktop screensaver.
+- **Font glitches?**: If palms, cars, or borders look misaligned in your terminal font, launch with `python3 vibe_city.py --ascii` for crisp pure-ASCII rendering.
 
 ---
 
 ## 📻 In-Game Synth Radio
 
-All **5 radio stations (15 original songs)** in [`radio.py`](radio.py) are synthesized completely from scratch in Python + NumPy—procedural drums, saw/square/pulse oscillators, stereo ping-pong echo, and seeded chord progressions—cached locally on first run:
+All **5 radio stations (15 original songs)** in [`radio.py`](radio.py) are synthesized completely from scratch—no samples, no external audio files:
 
-| Station | Vibe | Tracks |
+| Station | Style & Tempo | Tracks |
 | :--- | :--- | :--- |
 | **NEON WAVE 88.6** | Synthwave · 100 BPM | *Midnight Palms*, *Chrome Horizon*, *Afterglow Drive* |
 | **FLAMINGO FM** | Disco · 118 BPM | *Pastel Suits*, *Velvet Rollerdisco*, *Mirrorball Heart* |
@@ -135,7 +158,7 @@ All **5 radio stations (15 original songs)** in [`radio.py`](radio.py) are synth
 
 | District | Vibes | Tagline | Landmarks |
 | :--- | :---: | :--- | :--- |
-| **Neon Shores** | `▮▮▮▮▮` | *pastel hotels, all-night surf* | ★ Sunset Pier · ★ Pink Flamingo Motel · *(👻 hidden secret)* |
+| **Neon Shores** | `▮▮▮▮▮` | *pastel hotels, all-night surf* | ★ Sunset Pier · ★ Pink Flamingo Motel |
 | **Flamingo Keys** | `▮▮▮▮▮` | *tiny islands, big money* | Prawn, Leaf Links Golf Islands & Starfish Island |
 | **Chrome Heights** | `▮▮▮▮▯` | *glass towers, neon rooftops* | ★ Club 86 Rooftop |
 | **Vibe Causeway** | `▮▮▮▮▯` | *six lanes of sunset* | Central bay bridge crossing |
