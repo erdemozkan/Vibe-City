@@ -11,6 +11,7 @@ Run:   python3 vibe_city.py            (256-colour terminal, ~120x40 or bigger i
 
 Keys:  arrows / WASD move   TAB sprint   G ghost   M city map   ? help   Q quit
 """
+import base64
 import curses
 import locale
 import math
@@ -18,6 +19,7 @@ import os
 import random
 import sys
 import time
+import zlib
 
 W, H = 180, 60
 SEED = 1986
@@ -535,7 +537,7 @@ class World:
 
         self.signs = list(SIGNS)
         self.spawn = (145, 20)
-        # (name, district, scene, x, y) - walk within 2 cells and press E
+        # (name, district, scene, x, y[, ghost_only]) - walk within 2 cells and press E
         self.landmarks = [
             ("Sunset Pier", "Neon Shores", scene_pier, 155, 29),
             ("Pink Flamingo Motel", "Neon Shores", scene_motel, 145, 13),
@@ -543,11 +545,16 @@ class World:
             ("Runway 86", "Vibe Int'l Airport", scene_runway, 26, 49),
             ("Crane Row", "Starlight Docks", scene_docks, 67, 48),
             ("Sunset Gas Stop", "Route 86", scene_gas_stop, 32, 27),
+            ("Secret Fan Art", "Neon Shores", scene_fan_art, 137, 46, True),
         ]
 
-    def near(self, x, y):
+    def near(self, x, y, ghost=False):
         for lm in self.landmarks:
-            if max(abs(lm[3] - x), abs(lm[4] - y)) <= 2:
+            ghost_only = len(lm) > 5 and lm[5]
+            if ghost_only and not ghost:
+                continue
+            dist = 1 if ghost_only else 2
+            if max(abs(lm[3] - x), abs(lm[4] - y)) <= dist:
                 return lm
         return None
 
@@ -1391,6 +1398,118 @@ def scene_frame(lm, rows, cols, now):
     return g
 
 
+FAN_ART_SIZE = (150, 44)
+FAN_ART_B64 = (
+    "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"
+    "EQ=="
+)
+_FAN_ART_CACHE = None
+
+
+def _fan_art_data():
+    global _FAN_ART_CACHE
+    if _FAN_ART_CACHE is None:
+        raw = zlib.decompress(base64.b64decode(FAN_ART_B64))
+        n = FAN_ART_SIZE[0] * FAN_ART_SIZE[1]
+        _FAN_ART_CACHE = (raw[:n].decode("ascii"), raw[n:])
+    return _FAN_ART_CACHE
+
+
+def scene_fan_art(rows, cols, now):
+    g = canvas(rows, cols, bg=16)
+    chars, colors = _fan_art_data()
+    aw, ah = FAN_ART_SIZE
+    avail_w, avail_h = cols, max(4, rows - 2)
+    tw = min(avail_w, max(10, int(round(avail_h * aw / ah))))
+    th = min(avail_h, max(4, int(round(tw * ah / aw))))
+    x0 = (cols - tw) // 2
+    y0 = 1 + (avail_h - th) // 2
+    pulse = int(now * 3) % 4 == 0
+    for ry in range(th):
+        sy = min(ah - 1, int(ry * ah / th))
+        row_off = sy * aw
+        gy = y0 + ry
+        for rx in range(tw):
+            sx = min(aw - 1, int(rx * aw / tw))
+            idx = row_off + sx
+            ch = chars[idx]
+            if ch != " ":
+                fg = colors[idx]
+                if pulse and fg == 231 and sy < 12 and 42 <= sx <= 68:
+                    fg = 229  # gentle sunset sun shimmer
+                cell(g, x0 + rx, gy, ch, fg, 16, True)
+    return g
+
+
 # --------------------------------------------------------------------------- game screen
 
 HELP = [
@@ -1473,6 +1592,8 @@ def game_frame(world, st, cars, rows, cols, now):
     for name, x, y in LABELS:
         text_at(x, y, " " + name + " ", 255, 16)
     for lm in world.landmarks:
+        if len(lm) > 5 and lm[5]:
+            continue  # hidden treasure: no blinking star on the map
         sx, sy = w2s(lm[3], lm[4])
         ov[(sx, sy)] = ("★", 226 if int(now * 3) % 2 else 208, None, True)
     for c in cars:
@@ -1510,7 +1631,7 @@ def game_frame(world, st, cars, rows, cols, now):
         if 0 <= psy < vh and 0 <= psx < vw:
             grid[psy][psx] = ("◆", 16, tile_bg, True)
     # district toast
-    near = world.near(st.px, st.py)
+    near = world.near(st.px, st.py, st.ghost)
     if now < st.toast_until and vh > 6:
         put(grid, max(0, (vw - len(st.toast)) // 2), 1, st.toast, 16, True, 213)
     elif near and vh > 6:
@@ -1602,7 +1723,7 @@ def game(scr, pal, ascii_mode, radio=None):
                     scr.erase()
                 continue
             if k in (ord("e"), ord("E"), 10, 13, curses.KEY_ENTER):
-                lm = world.near(st.px, st.py)
+                lm = world.near(st.px, st.py, st.ghost)
                 if lm:
                     st.scene, st.help = lm, False
                     pal.reset()  # each scene gets the full set of colour pairs
